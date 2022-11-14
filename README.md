@@ -1,6 +1,6 @@
 # discord-nut-counter-bot
 
-![Screenshot from 2022-11-14 20-34-22](https://user-images.githubusercontent.com/90265322/201673334-43c216c4-a049-40bc-88ae-f27ef407fff9.png)
+![mp,550x550,gloss,ffffff,t u3](https://user-images.githubusercontent.com/90265322/201673566-88727c41-0ce4-4c48-983f-472b2795902a.jpg)
 
 DiscordJS bot that keeps track of how many times you do it in a day.
 
