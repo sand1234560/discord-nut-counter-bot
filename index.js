@@ -6,8 +6,6 @@ const client = new DiscordJS.Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
 })
 
-
-
 client.on('ready', () => {
     console.log('Letssss fucking go')
 })
@@ -15,16 +13,16 @@ client.on('messageCreate', async (message) => {
     if (message.content == 'log') {
         message.delete();
         let nowDate, susMonth, susYear, totalDayMil, totalDay, Amount, susAmount, susTime,
-    lastMessageSplit, previousTotal, finalTotal, overallCumTime;
+        lastMessageSplit, previousTotal, finalTotal, overallCumTime;
 
         const firstDay = new Date(2021, 7, 10); //Start date
         const dateCreate = new Date();
         nowDate = dateCreate.getDate();
         susMonth = dateCreate.getMonth();
         susYear = dateCreate.getFullYear();
-        totalDayMil = dateCreate - firstDay; //This is total day in milliseconds.
-        totalDay = Math.floor(totalDayMil / (1000*60*60*24)); //Total day milliseconds convert to days.
-        switch(susMonth) {
+        totalDayMil = dateCreate - firstDay; //Total day in milliseconds.
+        totalDay = Math.floor(totalDayMil / (1000*60*60*24)); //Total day milsec convert to days.
+        switch(susMonth){
             case 0:susMonth = "January";break;
             case 1:susMonth = "February";break;
             case 2:susMonth = "March";break;
@@ -59,7 +57,7 @@ client.on('messageCreate', async (message) => {
             return Amount;
         }
 
-        function timeConvert(Amount){ 
+        function timeConvert(Amount){ //whether "time" after the day's Amount becomes "times"
             if (Amount == 1) {
                 susTime = "time"
             } else {
@@ -68,7 +66,7 @@ client.on('messageCreate', async (message) => {
             return susTime;
         }
 
-        function timeConvertAgain(finalTotal){
+        function timeConvertAgain(finalTotal){ // whether "time" after total number becomes "times"
             if (finalTotal == 1){
                 overallCumTime = "time"
             } else {
@@ -76,12 +74,9 @@ client.on('messageCreate', async (message) => {
             }
             return overallCumTime;
         }
-       // const messages = await message.channel.messages.fetch({ limit: 2 });
-       // const lastMessage = messages.last();
 
-       setTimeout(() => { message.channel.messages.fetch({ limit: 1 }).then(messages => { //fetch 2s after command
+        setTimeout(() => { message.channel.messages.fetch({ limit: 1 }).then(messages => { //fetch 2s after command
         let lastMessage = messages.first();
-        // do what you need with lastMessage below
         lastMessageSplit = lastMessage.content.split(' ');
         previousTotal = lastMessageSplit[9]; //Previous day total
         finalTotal = parseInt(previousTotal); //turns previousTotal into int
@@ -124,7 +119,7 @@ client.on('messageCreate', async (message) => {
                 .catch(console.error);
             }
             //send a new message if 1.the date doesn't match previous' 2. No previous message 
-            else if (dateCompare > 0){
+            else if (dateCompare > 0 || lastMessage.content == null){
                 message.channel.send({
                     content: `**Day ${totalDay} - ${nowDate} ${susMonth} ${susYear}:** :one: time (Total: ${finalTotal} ${overallCumTime})`
                 })
