@@ -112,14 +112,21 @@ client.on('messageCreate', async (message) => {
         console.log(`Amount: ${Amount}`);
 
         setTimeout(() => {
-            //edit the message if 1.the date is the same as previous'
+            // The date is the same as previous'
             if (dateCompare == 0){ //edit message 1 second after fetching ( 3s after command)
                 lastMessage.edit(`**Day ${totalDay} - ${nowDate} ${susMonth} ${susYear}:** ${susAmount} ${susTime} (Total: ${finalTotal} ${overallCumTime})`)
                 .then(msg => console.log(`Updated the content of a message to ${msg.content}`))
                 .catch(console.error);
             }
-            //send a new message if 1.the date doesn't match previous' 2. No previous message 
-            else if (dateCompare > 0 || lastMessage.content == null){
+            // No previous message 
+            else if (Number.isNaN(dateCompare)){
+                message.channel.send({
+                    content: `**Day ${totalDay} - ${nowDate} ${susMonth} ${susYear}:** :one: time (Total: 1 time)`
+                })
+                console.log("No previous message found")
+            }
+            // The date doesn't match previous'
+            else if (dateCompare > 0){
                 message.channel.send({
                     content: `**Day ${totalDay} - ${nowDate} ${susMonth} ${susYear}:** :one: time (Total: ${finalTotal} ${overallCumTime})`
                 })
