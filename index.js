@@ -62,9 +62,9 @@ client.on('messageCreate', async (message) => {
 
         function timeConvert(Amount){ //whether "time" after the day's Amount becomes "times"
             if (Amount == 1) {
-                susTime = "time"
+                susTime = "time";
             } else {
-                susTime = "times"
+                susTime = "times";
             }
             return susTime;
         }
@@ -122,20 +122,21 @@ client.on('messageCreate', async (message) => {
         console.log(`dateCompare: ${dateCompare}`);
         console.log(`Amount: ${Amount}`);
 
-        setTimeout(() => {
+        setTimeout(() => {     
             // The date is the same as previous'
             if (dateCompare == 0){ //edit message 1 second after fetching ( 3s after command)
                 lastMessage.edit(`**Day ${totalDay} - ${nowDate} ${susMonth} ${susYear}:** ${susAmount} ${susTime} (Total: ${finalTotal} ${overallCumTime})`)
                 .then(msg => console.log(`Updated the content of a message to ${msg.content}`))
                 .catch(console.error);
             }
-            // somehow broken
+            /* //shitfucking broken
             else if (Number.isNaN(dateCompare)){
                 message.channel.send({
                     content: `**Day ${totalDay} - ${nowDate} ${susMonth} ${susYear}:** :one: time (Total: ${finalTotal} ${overallCumTime})`
                 })
                 console.log("No previous message found")
-            }
+            }*/
+
             // The date doesn't match previous'
             else if (dateCompare > 0){
                 message.channel.send({
@@ -145,6 +146,38 @@ client.on('messageCreate', async (message) => {
                         }, 1000);
       })
       .catch(console.error);  }, 2000);
+    }
+})
+
+client.on('messageCreate', async (message) => {
+    if (message.content.startsWith("logSend")) {
+        let manSend, manSendArray, sheesh
+        manSend = message.content.slice(8).split(' ');
+        manSendArray = manSend[6]
+        switch(manSendArray) {
+            case "0️⃣":sheesh = ":zero:";break;
+            case "1️⃣":sheesh = ":one:";break;
+            case "2️⃣":sheesh = ":two:";break;
+            case "3️⃣":sheesh = ":three:";break;
+            case "4️⃣":sheesh = ":four:";break;
+            case "5️⃣":sheesh = ":five:";break;
+            case "6️⃣":sheesh = ":six:";break;
+            case "7️⃣":sheesh = ":seven:";break;
+            case "8️⃣":sheesh = ":eight:";break;
+            case "9️⃣":sheesh = ":nine:";break;
+            case "🔟":sheesh = ":keycap_ten:";break;
+            case "1️⃣1️⃣":sheesh = ":one::one:";break;
+            default:sheesh = "Too much, my man.";break;
+        }
+        message.delete();
+        manSend.splice(6, 1, sheesh)
+        let manSendFinal = manSend.join(" ");
+        /* //Just some old troubleshooting stuff
+        console.log("manSend: " + manSend);
+        console.log("manSendArray: " + manSendArray);
+        console.log("sheesh: " + sheesh)
+        */
+        message.channel.send(manSendFinal);
     }
 })
 
