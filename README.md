@@ -5,4 +5,10 @@
 Discord bot for you to keep track of how many times you do it in a day. 
 
 Only supporting linux for now.
-Setup guide coming soon...
+
+Follow this tutorial on creating a bot: https://www.youtube.com/watch?v=JMmUW4d3Noc
+I didn't provide a .env file, you have to create it yourself.
+
+run "node index.js" in the main directory to start the bot.
+
+Create a new discord channel for your log and only allow you and the bot to send message.
