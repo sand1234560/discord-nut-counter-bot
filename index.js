@@ -12,6 +12,7 @@ client.on('ready', () => {
 client.on('messageCreate', async (message) => {
     if (message.content == 'log') {
         message.delete();
+        
         let nowDate, susMonth, susYear, totalDayMil, totalDay, Amount, susAmount, susTime,
         lastMessageSplit, previousTotal, finalTotal, overallCumTime;
 
@@ -75,16 +76,22 @@ client.on('messageCreate', async (message) => {
             return overallCumTime;
         }
 
-        setTimeout(() => { message.channel.messages.fetch({ limit: 1 }).then(messages => { //fetch 2s after command
-        let lastMessage = messages.first();
-        lastMessageSplit = lastMessage.content.split(' ');
-        previousTotal = lastMessageSplit[9]; //Previous day total
-        finalTotal = parseInt(previousTotal); //turns previousTotal into int
-        finalTotal+= 1;
-        console.log(`previous total: ${previousTotal}, Today total: ${finalTotal}`);
+        setTimeout(() => { 
+            message.channel.messages.fetch({ limit: 1 }).then(messages => { //fetch 2s after command
+            let lastMessage = messages.first();
+            if (lastMessage == undefined){
+                message.channel.send({ //Absolute first message
+                    content: `**Day ${totalDay} - ${nowDate} ${susMonth} ${susYear}:** :one: time (Total: 1 time)`
+                })
+            }
+            lastMessageSplit = lastMessage.content.split(' ');
+            previousTotal = lastMessageSplit[9]; //Previous day total
+            finalTotal = parseInt(previousTotal); //turns previousTotal into int
+            finalTotal+= 1;
+            console.log(`previous total: ${previousTotal}, Today total: ${finalTotal}`);
 
-        let previousDay = lastMessageSplit[1]; 
-        let finalPreviousDay = parseInt(previousDay); //previous date
+            let previousDay = lastMessageSplit[1]; 
+            let finalPreviousDay = parseInt(previousDay); //previous date
 
         susAmount = lastMessageSplit[6];
         AmountConvert(susAmount);
@@ -118,10 +125,10 @@ client.on('messageCreate', async (message) => {
                 .then(msg => console.log(`Updated the content of a message to ${msg.content}`))
                 .catch(console.error);
             }
-            // No previous message 
+            // somehow broken
             else if (Number.isNaN(dateCompare)){
                 message.channel.send({
-                    content: `**Day ${totalDay} - ${nowDate} ${susMonth} ${susYear}:** :one: time (Total: 1 time)`
+                    content: `**Day ${totalDay} - ${nowDate} ${susMonth} ${susYear}:** :one: time (Total: ${finalTotal} ${overallCumTime})`
                 })
                 console.log("No previous message found")
             }
