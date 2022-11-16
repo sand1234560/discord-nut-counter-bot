@@ -4,7 +4,6 @@
 
 Discord bot for you to keep track of how many times you do it in a day. 
 
-Only supporting linux for now.
 You can only log 11 times before the bot fucking dies.(No one should ever do it more than 11 times a day)
 
 Follow this tutorial on creating a bot: https://www.youtube.com/watch?v=JMmUW4d3Noc
