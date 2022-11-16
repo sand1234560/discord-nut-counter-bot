@@ -16,13 +16,13 @@ client.on('messageCreate', async (message) => {
         let nowDate, susMonth, susYear, totalDayMil, totalDay, Amount, susAmount, susTime,
         lastMessageSplit, previousTotal, finalTotal, overallCumTime;
 
-        const firstDay = new Date(2021, 7, 10); //Start date
+        const firstDay = new Date(2021, 7, 10); //Start date (The project idea started on 2021, 7 ,10)
         const dateCreate = new Date();
         nowDate = dateCreate.getDate();
         susMonth = dateCreate.getMonth();
         susYear = dateCreate.getFullYear();
         totalDayMil = dateCreate - firstDay; //Total day in milliseconds.
-        totalDay = Math.floor(totalDayMil / (1000*60*60*24)); //Total day milsec convert to days.
+        totalDay = Math.floor((totalDayMil / (1000*60*60*24)) + 1); //Total day milsec convert to days.
         switch(susMonth){
             case 0:susMonth = "January";break;
             case 1:susMonth = "February";break;
