@@ -52,6 +52,8 @@ client.on('messageCreate', async (message) => {
                 case ":seven:":Amount = 7;break;
                 case ":eight:":Amount = 8;break;
                 case ":nine:":Amount = 9;break;
+                case ":keycap_ten:":Amount = 10;break;
+                case ":one::one:":Amount = 11;break;
                 default:Amount = "Too much, my man.";break;
             }
             Amount += 1;
@@ -109,6 +111,8 @@ client.on('messageCreate', async (message) => {
             case 7:susAmount = ":seven:";break;
             case 8:susAmount = ":eight:";break;
             case 9:susAmount = ":nine:";break;
+            case 10:susAmount = ":keycap_ten:";break;
+            case 11:susAmount = ":one::one:";break;
             default:susAmount = "Too much, my man.";break;
         }
 
