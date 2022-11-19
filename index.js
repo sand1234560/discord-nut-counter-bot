@@ -24,18 +24,18 @@ client.on('messageCreate', async (message) => {
         totalDayMil = dateCreate - firstDay; //Total day in milliseconds.
         totalDay = Math.floor((totalDayMil / (1000*60*60*24)) + 1); //Total day milsec convert to days.
         switch(susMonth){
-            case 0:susMonth = "January";break;
-            case 1:susMonth = "February";break;
-            case 2:susMonth = "March";break;
-            case 3:susMonth = "April";break;
+            case 0:susMonth = "Jan";break;
+            case 1:susMonth = "Feb";break;
+            case 2:susMonth = "Mar";break;
+            case 3:susMonth = "Apr";break;
             case 4:susMonth = "May";break;
-            case 5:susMonth = "June";break;
-            case 6:susMonth = "July";break;
-            case 7:susMonth = "August";break;
-            case 8:susMonth = "September";break;
-            case 9:susMonth = "October";break;
-            case 10:susMonth = "November";break;
-            case 11:susMonth = "December";break;
+            case 5:susMonth = "Jun";break;
+            case 6:susMonth = "Jul";break;
+            case 7:susMonth = "Aug";break;
+            case 8:susMonth = "Sep";break;
+            case 9:susMonth = "Oct";break;
+            case 10:susMonth = "Nov";break;
+            case 11:susMonth = "Dec";break;
             default:susMonth = "Bro, I think month is broken";break;
         }     
         console.log(`\n${nowDate} ${susMonth} ${susYear} (${totalDay} days since starting date)`)
