@@ -42,7 +42,7 @@ client.on('messageCreate', async (message) => {
 
         function AmountConvert(susAmount){
             switch(susAmount) {
-                case ":zero":Amount = 0;break;
+                case ":zero:":Amount = 0;break;
                 case ":one:":Amount = 1;break;
                 case ":two:":Amount = 2;break;
                 case ":three:":Amount = 3;break;
