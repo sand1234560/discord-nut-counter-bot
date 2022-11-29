@@ -57,7 +57,7 @@ client.on('ready', () => {
             default:susMonth = "Bro, I think month is broken";break;
         }
         const channel = client.channels.cache.find(channel => channel.name === "nut-test-real");*/
-        const channel = client.channels.cache.find(channel => channel.id == '1042331901958029342');
+        const channel = client.channels.cache.find(channel => channel.id == '');
 
         channel.messages.fetch({ limit: 1 }).then(messages => {
             let lastMessage = messages.first();
@@ -101,7 +101,7 @@ client.on('ready', () => {
 })
 
 client.on('messageCreate', async (message) => {
-    if (message.channelId == '1042286710207283270'){
+    if (message.channelId == ''){
         if (message.content == 'log') {
             message.delete();
             
@@ -257,7 +257,7 @@ client.on('messageCreate', async (message) => {
 })
 
 client.on('messageCreate', async (message) => {
-    if (message.channelId == '1042286710207283270'){
+    if (message.channelId == ''){
         if (message.content.startsWith("logSend")) {
             let manSend, manSendArray, sheesh
             manSend = message.content.slice(8).split(' ');
