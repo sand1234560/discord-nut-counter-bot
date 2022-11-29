@@ -7,7 +7,7 @@ const client = new DiscordJS.Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
 })
 
-let monthReal;
+let monthReal, susTime, nowDate, susMonth, susYear, totalDayMil, totalDay;;
 
 function monthConverter(susMonth){
     switch(susMonth){
@@ -28,13 +28,10 @@ function monthConverter(susMonth){
     return(monthReal);
 }
 
-
-
 client.on('ready', () => {
     console.log('Letssss fucking go')
     const leSchedule = schedule.scheduleJob(`59 23 * * *`, function(){
         console.log('automatically sending time!!1111!!');
-        let susTime, nowDate, susMonth, susYear, totalDayMil, totalDay;
         const firstDay = new Date(2021, 7, 10); //Start date (The project idea started on 2021, 7 ,10)
         const dateCreate = new Date();
         nowDate = dateCreate.getDate();
@@ -108,8 +105,7 @@ client.on('messageCreate', async (message) => {
         if (message.content == 'log') {
             message.delete();
             
-            let nowDate, susMonth, susYear, totalDayMil, totalDay, Amount, susAmount, susTime,
-            lastMessageSplit, previousTotal, finalTotal, overallCumTime;
+            let Amount, susAmount, susTime, lastMessageSplit, previousTotal, finalTotal, overallCumTime;
 
             const firstDay = new Date(2021, 7, 10); //Start date (The project idea started on 2021, 7 ,10)
             const dateCreate = new Date();
