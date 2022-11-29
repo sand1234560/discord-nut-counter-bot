@@ -28,11 +28,49 @@ sudo pacman -S nodejs
 
 <h2>Bot configuration</h2>
 
-Download this github as a zip.
+Download this github as a ZIP or use git clone:
+
+```git clone https://github.com/sand1234560/discord-nut-counter-bot.git```
+
+Put the project anywhere where it suits you, also unzip is you downloaded as a ZIP.
 
 Follow this tutorial (Till 5 minutes mark) on creating a discord application: https://www.youtube.com/watch?v=JMmUW4d3Noc
 
-I didn't provide a .env file, you have to create it yourself.
+<b>Creating a new discord bot</b>
+
+Go to ```https://discord.com/developers/applications/```
+
+![Screenshot from 2022-11-29 14-07-11](https://user-images.githubusercontent.com/90265322/204464252-f7af47fb-664c-45b7-a71a-eca47ae0956f.png)
+
+Create a new application
+
+![Screenshot from 2022-11-29 14-07-22](https://user-images.githubusercontent.com/90265322/204464264-b0b876a9-1567-41ab-bfbf-f3651233ba67.png)
+
+![Screenshot from 2022-11-29 14-08-37](https://user-images.githubusercontent.com/90265322/204464287-8fff2ce2-fdc1-4d07-bd10-c8fd1fda1714.png)
+
+Add a bot
+
+![Screenshot from 2022-11-29 14-08-46](https://user-images.githubusercontent.com/90265322/204464419-98855860-c009-4087-95e0-c19c90d098de.png)
+
+Reset the token
+
+![Screenshot from 2022-11-29 14-09-01](https://user-images.githubusercontent.com/90265322/204464427-0f32af47-c1f9-472d-ae4e-1043b66eecca.png)
+
+Copy the token (Token is an authentication Key, keep it safe)
+
+![Screenshot from 2022-11-29 14-09-16](https://user-images.githubusercontent.com/90265322/204464446-7bb30136-55f8-452f-a4c6-4298ee499e85.png)
+
+Navigate to the discord-nut-counter-bot directory
+
+create a new file named .env using any text editor (nano in this case)
+
+```nano .env```
+
+Enter your copied token inside '<token here>'
+
+
+
+invite the bot to your server.
 
 run "node index.js" in the main directory to start the bot. (Use systemd if you don't want to activate it manually.)
 
