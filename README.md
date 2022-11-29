@@ -13,3 +13,5 @@ I didn't provide a .env file, you have to create it yourself.
 run "node index.js" in the main directory to start the bot.
 
 Create a new discord channel for your log and only allow you and the bot to send message.
+
+<h3>Automatically run on start up using systemd:</h3>
