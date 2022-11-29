@@ -86,7 +86,7 @@ create a new file named .env using any text editor (nano in this case)
 
 Enter your copied token 
 
-`Token=<Token-here>`
+![Screenshot from 2022-11-29 20-22-25](https://user-images.githubusercontent.com/90265322/204540382-19d9a770-e4ac-40e3-b326-691acdb81aad.png)
 
 Ctrl+O, Enter, Ctrl+X to save and exit nano
 
