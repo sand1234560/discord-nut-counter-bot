@@ -52,6 +52,10 @@ Add a bot
 
 ![Screenshot from 2022-11-29 14-08-46](https://user-images.githubusercontent.com/90265322/204464419-98855860-c009-4087-95e0-c19c90d098de.png)
 
+Give the bot some privileges
+
+![image](https://user-images.githubusercontent.com/90265322/204467001-3aef7e83-e355-4741-afa2-8de893b483be.png)
+
 Reset the token
 
 ![Screenshot from 2022-11-29 14-09-01](https://user-images.githubusercontent.com/90265322/204464427-0f32af47-c1f9-472d-ae4e-1043b66eecca.png)
@@ -68,14 +72,20 @@ create a new file named .env using any text editor (nano in this case)
 
 Enter your copied token inside '<token here>'
 
+![Screenshot from 2022-11-29 14-26-30](https://user-images.githubusercontent.com/90265322/204467508-b4672918-f205-4cdc-89f5-85b8b4584f74.png)
 
+Ctrl+O, Enter, Ctrl+X to save and exit nano
 
-invite the bot to your server.
+invite the bot to your server. (Administrator privilege isn't good, Im working on it alright)
 
-run "node index.js" in the main directory to start the bot. (Use systemd if you don't want to activate it manually.)
+![image](https://user-images.githubusercontent.com/90265322/204468054-fcb909c3-599a-4526-a78f-ebde8f8da39a.png)
+
+![image](https://user-images.githubusercontent.com/90265322/204468222-7e67c26a-62fe-4e48-849b-e17e0cef4524.png)
 
 Create a new discord channel for your log. Allow only you and the bot to send message.
 
+run "node index.js" in the main directory to start the bot. (Use systemd if you don't want to activate it manually.)
+  
 <h2>Automatically run on start up using systemd</h2>
 sudo nano /etc/systemd/system/<anything>.service
 
