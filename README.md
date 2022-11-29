@@ -6,6 +6,20 @@ Discord bot for you to keep track of how many times you ejaculate in a day.
 
 <b>You can only log 11 times before the bot fucking dies. (No one should ever do it more than 11 times a day)</b>
 
+<h2>How 2 use the bot</h2>
+
+Type `log` to log your nut 
+ 
+Type `logSend` to send a manual log if in any case the bot malfunction and you missed a day.
+  
+```**Day <days-since-start> - <Date> <Month> <Year>:** <Amount> times (Total: <Total> times)```
+
+Example:
+
+```**Day 69 - 1 Dec 2022:** 7 times (Total: 420 times)```
+  
+ The bot automatically sends :zero: times at 23:59 if no log has been made that day.
+ 
 This tutorial is mainly aimed towards Ubuntu and Arch Linux, Windows support might come some day.
 
 <b>!!!Tutorial unfinished!!!</b>
@@ -32,11 +46,11 @@ Download this github as a ZIP or use git clone:
 
 ```git clone https://github.com/sand1234560/discord-nut-counter-bot.git```
 
-Put the project anywhere where it suits you, also unzip is you downloaded as a ZIP.
+Put the project anywhere where it suits you, also unzip if you downloaded it as a ZIP.
 
 Follow this tutorial (Till 5 minutes mark) on creating a discord application: https://www.youtube.com/watch?v=JMmUW4d3Noc
 
-<b>Creating a new discord bot</b>
+<h3>Creating a new discord bot</h3>
 
 Go to ```https://discord.com/developers/applications/```
 
@@ -70,7 +84,7 @@ create a new file named .env using any text editor (nano in this case)
 
 ```nano .env```
 
-Enter your copied token inside '<token here>'
+Enter your copied token inside `<token here>`
 
 ![Screenshot from 2022-11-29 14-26-30](https://user-images.githubusercontent.com/90265322/204467508-b4672918-f205-4cdc-89f5-85b8b4584f74.png)
 
