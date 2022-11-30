@@ -52,7 +52,8 @@ Follow this tutorial (Till 5 minutes mark) on creating a discord application: ht
 
 <h3>Creating a new discord bot </h3>
 (Follow this if you don't already have bot)
-Go to ```https://discord.com/developers/applications/```
+
+Go to https://discord.com/developers/applications/
 
 ![Screenshot from 2022-11-29 14-07-11](https://user-images.githubusercontent.com/90265322/204464252-f7af47fb-664c-45b7-a71a-eca47ae0956f.png)
 
