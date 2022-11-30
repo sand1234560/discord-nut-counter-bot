@@ -7,7 +7,7 @@ const client = new DiscordJS.Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
 })
 
-let monthReal, susTime, nowDate, susMonth, susYear, totalDayMil, totalDay;;
+let monthReal, susTime, nowDate, susMonth, susYear, totalDayMil, totalDay, manSend, manSendArray, sheesh;
 
 function monthConverter(susMonth){
     switch(susMonth){
@@ -23,7 +23,7 @@ function monthConverter(susMonth){
         case 9:monthReal = "Oct";break;
         case 10:monthReal = "Nov";break;
         case 11:monthReal = "Dec";break;
-        default:susMonth = "Bro, I think month is broken";break;
+        default:monthReal = "Bro, I think month is broken";break;
     }
     return(monthReal);
 }
@@ -41,22 +41,7 @@ client.on('ready', () => {
         totalDay = Math.floor((totalDayMil / (1000*60*60*24)) + 1); //Total day milsec convert to days.
         monthConverter(susMonth)
 
-/*        switch(susMonth){ //month converter
-            case 0:susMonth = "Jan";break;
-            case 1:susMonth = "Feb";break;
-            case 2:susMonth = "Mar";break;
-            case 3:susMonth = "Apr";break;
-            case 4:susMonth = "May";break;
-            case 5:susMonth = "Jun";break;
-            case 6:susMonth = "Jul";break;
-            case 7:susMonth = "Aug";break;
-            case 8:susMonth = "Sep";break;
-            case 9:susMonth = "Oct";break;
-            case 10:susMonth = "Nov";break;
-            case 11:susMonth = "Dec";break;
-            default:susMonth = "Bro, I think month is broken";break;
-        }
-        const channel = client.channels.cache.find(channel => channel.name === "nut-test-real");*/
+/*      const channel = client.channels.cache.find(channel => channel.name === "nut-test-real");*/
         const channel = client.channels.cache.find(channel => channel.id == '');
 
         channel.messages.fetch({ limit: 1 }).then(messages => {
@@ -204,54 +189,54 @@ client.on('messageCreate', async (message) => {
                 timeConvertAgain(finalTotal);
                 monthConverter(susMonth);
 
-            console.log(`\n${nowDate} ${monthReal} ${susYear} (${totalDay} days since starting date)`)
+                console.log(`\n${nowDate} ${monthReal} ${susYear} (${totalDay} days since starting date)`)
 
-            switch (Amount){
-                case 0:susAmount = ":zero:"; break; //sus_Amount -> Amount -> fuck_off (Pretty much sus_Amount b)
-                case 1:susAmount = ":one:";break;
-                case 2:susAmount = ":two:";break;
-                case 3:susAmount = ":three:";break;
-                case 4:susAmount = ":four:";break;
-                case 5:susAmount = ":five:";break;
-                case 6:susAmount = ":six:";break;
-                case 7:susAmount = ":seven:";break;
-                case 8:susAmount = ":eight:";break;
-                case 9:susAmount = ":nine:";break;
-                case 10:susAmount = ":keycap_ten:";break;
-                case 11:susAmount = ":one::one:";break;
-                default:susAmount = "Too much, my man.";break;
-            }
-
-            let dateCompare = totalDay-finalPreviousDay
-            console.log(`Previous date: ${finalPreviousDay}`);
-            console.log(`lastMessageSplit: ${lastMessageSplit}`);
-            console.log(`dateCompare: ${dateCompare}`);
-            console.log(`Amount: ${Amount}`);
-
-            setTimeout(() => {     
-                // The date is the same as previous'
-                if (dateCompare == 0){ //edit message 1 second after fetching ( 3s after command)
-                    lastMessage.edit(`**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** ${susAmount} ${susTime} (Total: ${finalTotal} ${overallCumTime})`)
-                    .then(msg => console.log(`Updated the content of a message to ${msg.content}`))
-                    .catch(console.error);
+                switch (Amount){
+                    case 0:susAmount = ":zero:"; break; //sus_Amount -> Amount -> fuck_off (Pretty much sus_Amount b)
+                    case 1:susAmount = ":one:";break;
+                    case 2:susAmount = ":two:";break;
+                    case 3:susAmount = ":three:";break;
+                    case 4:susAmount = ":four:";break;
+                    case 5:susAmount = ":five:";break;
+                    case 6:susAmount = ":six:";break;
+                    case 7:susAmount = ":seven:";break;
+                    case 8:susAmount = ":eight:";break;
+                    case 9:susAmount = ":nine:";break;
+                    case 10:susAmount = ":keycap_ten:";break;
+                    case 11:susAmount = ":one::one:";break;
+                    default:susAmount = "Too much, my man.";break;
                 }
-                /* //shitfucking broken
-                else if (Number.isNaN(dateCompare)){
-                    message.channel.send({
-                        content: `**Day ${totalDay} - ${nowDate} ${susMonth} ${susYear}:** :one: time (Total: ${finalTotal} ${overallCumTime})`
-                    })
-                    console.log("No previous message found")
-                }*/
 
-                // The date doesn't match previous'
-                else if (dateCompare > 0){
-                    message.channel.send({
-                        content: `**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :one: time (Total: ${finalTotal} ${overallCumTime})`
-                    })
-                }
+                let dateCompare = totalDay-finalPreviousDay
+                console.log(`Previous date: ${finalPreviousDay}`);
+                console.log(`lastMessageSplit: ${lastMessageSplit}`);
+                console.log(`dateCompare: ${dateCompare}`);
+                console.log(`Amount: ${Amount}`);
+
+                setTimeout(() => {     
+                    // The date is the same as previous'
+                    if (dateCompare == 0){ //edit message 1 second after fetching ( 3s after command)
+                        lastMessage.edit(`**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** ${susAmount} ${susTime} (Total: ${finalTotal} ${overallCumTime})`)
+                        .then(msg => console.log(`Updated the content of a message to ${msg.content}`))
+                        .catch(console.error);
+                    }
+                    /* //shitfucking broken
+                    else if (Number.isNaN(dateCompare)){
+                        message.channel.send({
+                            content: `**Day ${totalDay} - ${nowDate} ${susMonth} ${susYear}:** :one: time (Total: ${finalTotal} ${overallCumTime})`
+                        })
+                        console.log("No previous message found")
+                    }*/
+
+                    // The date doesn't match previous'
+                    else if (dateCompare > 0){
+                        message.channel.send({
+                            content: `**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :one: time (Total: ${finalTotal} ${overallCumTime})`
+                        })
+                    }
                             }, 1000);
-        })
-        .catch(console.error);  }, 2000);
+                }).catch(console.error);  
+            }, 2000);
         }
     }  
 })
@@ -259,7 +244,6 @@ client.on('messageCreate', async (message) => {
 client.on('messageCreate', async (message) => {
     if (message.channelId == ''){
         if (message.content.startsWith("logSend")) {
-            let manSend, manSendArray, sheesh
             manSend = message.content.slice(8).split(' ');
             manSendArray = manSend[6]
             switch(manSendArray) {
