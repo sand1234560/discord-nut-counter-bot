@@ -2,7 +2,7 @@ import DiscordJS, { Intents } from 'discord.js'
 import dotenv from 'dotenv'
 dotenv.config()
 import schedule from 'node-schedule'
-import { leChannelID } from './sus.js'
+import { leChannelID, leUserID } from './sus.js'
 
 const client = new DiscordJS.Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
@@ -88,7 +88,7 @@ client.on('ready', () => {
 })
 
 client.on('messageCreate', async (message) => {
-    if (message.channelId == leChannelID){
+    if (message.channelId == leChannelID && message.author.id == leUserID){
         if (message.content == 'log') {
             message.delete();
 
@@ -99,22 +99,7 @@ client.on('messageCreate', async (message) => {
             susYear = dateCreate.getFullYear();
             totalDayMil = dateCreate - firstDay; //Total day in milliseconds.
             totalDay = Math.floor((totalDayMil / (1000*60*60*24)) + 1); //Total day milsec convert to days.
-/*            switch(susMonth){
-                case 0:susMonth = "Jan";break;
-                case 1:susMonth = "Feb";break;
-                case 2:susMonth = "Mar";break;
-                case 3:susMonth = "Apr";break;
-                case 4:susMonth = "May";break;
-                case 5:susMonth = "Jun";break;
-                case 6:susMonth = "Jul";break;
-                case 7:susMonth = "Aug";break;
-                case 8:susMonth = "Sep";break;
-                case 9:susMonth = "Oct";break;
-                case 10:susMonth = "Nov";break;
-                case 11:susMonth = "Dec";break;
-                default:susMonth = "Bro, I think month is broken";break;
-            }
-*/            
+          
             function AmountConvert(susAmount){
                 switch(susAmount) {
                     case ":zero:":Amount = 0;break;
@@ -243,7 +228,7 @@ client.on('messageCreate', async (message) => {
 })
 
 client.on('messageCreate', async (message) => {
-    if (message.channel.id == leChannelID){
+    if (message.channelId == leChannelID && message.author.id == leUserID){
         if (message.content.startsWith("logSend")) { //Manual send
             manSend = message.content.slice(8).split(' ');
             manSendArray = manSend[6]
