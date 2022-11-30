@@ -2,6 +2,7 @@ import DiscordJS, { Intents } from 'discord.js'
 import dotenv from 'dotenv'
 dotenv.config()
 import schedule from 'node-schedule'
+import { leChannelID } from './sus.js'
 
 const client = new DiscordJS.Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
@@ -29,6 +30,7 @@ function monthConverter(susMonth){
 }
 
 client.on('ready', () => {
+    console.log(`ChannelID: ${leChannelID}`)
     console.log(`It's nuttin' time`)
     const leSchedule = schedule.scheduleJob(`59 23 * * *`, function(){
         console.log('automatically sending time!!1111!!');
@@ -42,7 +44,7 @@ client.on('ready', () => {
         monthConverter(susMonth)
 
         //const channel = client.channels.cache.find(channel => channel.name === "nut-test-real");
-        const channel = client.channels.cache.find(channel => channel.id == '');
+        const channel = client.channels.cache.find(channel => channel.id == leChannelID);
 
         channel.messages.fetch({ limit: 1 }).then(messages => {
             let lastMessage = messages.first();
@@ -86,7 +88,7 @@ client.on('ready', () => {
 })
 
 client.on('messageCreate', async (message) => {
-    if (message.channelId == ''){
+    if (message.channelId == leChannelID){
         if (message.content == 'log') {
             message.delete();
 
@@ -241,7 +243,7 @@ client.on('messageCreate', async (message) => {
 })
 
 client.on('messageCreate', async (message) => {
-    if (message.channelId == ''){
+    if (message.channel.id == leChannelID){
         if (message.content.startsWith("logSend")) { //Manual send
             manSend = message.content.slice(8).split(' ');
             manSendArray = manSend[6]
