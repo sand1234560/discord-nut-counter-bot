@@ -7,7 +7,7 @@ const client = new DiscordJS.Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
 })
 
-let monthReal, susTime, nowDate, susMonth, susYear, totalDayMil, totalDay, manSend, manSendArray, sheesh;
+let monthReal, susTime, nowDate, susMonth, susYear, totalDayMil, totalDay, manSend, manSendArray, sheesh, Amount, susAmount, lastMessageSplit, previousTotal, finalTotal, overallCumTime;
 
 function monthConverter(susMonth){
     switch(susMonth){
@@ -29,10 +29,10 @@ function monthConverter(susMonth){
 }
 
 client.on('ready', () => {
-    console.log('Letssss fucking go')
+    console.log(`It's nuttin' time`)
     const leSchedule = schedule.scheduleJob(`59 23 * * *`, function(){
         console.log('automatically sending time!!1111!!');
-        const firstDay = new Date(2021, 7, 10); //Start date (The project idea started on 2021, 7 ,10)
+        const firstDay = new Date(2021, 7, 10); //Start date (The project started on 2021, 7 ,10)
         const dateCreate = new Date();
         nowDate = dateCreate.getDate();
         susMonth = dateCreate.getMonth();
@@ -41,7 +41,7 @@ client.on('ready', () => {
         totalDay = Math.floor((totalDayMil / (1000*60*60*24)) + 1); //Total day milsec convert to days.
         monthConverter(susMonth)
 
-/*      const channel = client.channels.cache.find(channel => channel.name === "nut-test-real");*/
+        //const channel = client.channels.cache.find(channel => channel.name === "nut-test-real");
         const channel = client.channels.cache.find(channel => channel.id == '');
 
         channel.messages.fetch({ limit: 1 }).then(messages => {
@@ -89,8 +89,6 @@ client.on('messageCreate', async (message) => {
     if (message.channelId == ''){
         if (message.content == 'log') {
             message.delete();
-            
-            let Amount, susAmount, susTime, lastMessageSplit, previousTotal, finalTotal, overallCumTime;
 
             const firstDay = new Date(2021, 7, 10); //Start date (The project idea started on 2021, 7 ,10)
             const dateCreate = new Date();
@@ -191,8 +189,9 @@ client.on('messageCreate', async (message) => {
 
                 console.log(`\n${nowDate} ${monthReal} ${susYear} (${totalDay} days since starting date)`)
 
+                //sus_Amount(read data) -> Amount(int) -> sus_Amount(convert to :number: style)
                 switch (Amount){
-                    case 0:susAmount = ":zero:"; break; //sus_Amount -> Amount -> fuck_off (Pretty much sus_Amount b)
+                    case 0:susAmount = ":zero:"; break; 
                     case 1:susAmount = ":one:";break;
                     case 2:susAmount = ":two:";break;
                     case 3:susAmount = ":three:";break;
@@ -208,13 +207,13 @@ client.on('messageCreate', async (message) => {
                 }
 
                 let dateCompare = totalDay-finalPreviousDay
-                console.log(`Previous date: ${finalPreviousDay}`);
+                console.log(`Previous entry's day: ${finalPreviousDay}`);
                 console.log(`lastMessageSplit: ${lastMessageSplit}`);
                 console.log(`dateCompare: ${dateCompare}`);
-                console.log(`Amount: ${Amount}`);
+                console.log(`Sending amount: ${Amount}`);
 
                 setTimeout(() => {     
-                    // The date is the same as previous'
+                    // The date is the same as previous' log entry
                     if (dateCompare == 0){ //edit message 1 second after fetching ( 3s after command)
                         lastMessage.edit(`**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** ${susAmount} ${susTime} (Total: ${finalTotal} ${overallCumTime})`)
                         .then(msg => console.log(`Updated the content of a message to ${msg.content}`))
@@ -228,7 +227,7 @@ client.on('messageCreate', async (message) => {
                         console.log("No previous message found")
                     }*/
 
-                    // The date doesn't match previous'
+                    // The date doesn't match previous' log entry
                     else if (dateCompare > 0){
                         message.channel.send({
                             content: `**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :one: time (Total: ${finalTotal} ${overallCumTime})`
@@ -243,7 +242,7 @@ client.on('messageCreate', async (message) => {
 
 client.on('messageCreate', async (message) => {
     if (message.channelId == ''){
-        if (message.content.startsWith("logSend")) {
+        if (message.content.startsWith("logSend")) { //Manual send
             manSend = message.content.slice(8).split(' ');
             manSendArray = manSend[6]
             switch(manSendArray) {
