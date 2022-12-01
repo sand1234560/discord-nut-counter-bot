@@ -2,13 +2,13 @@ import DiscordJS, { Intents } from 'discord.js'
 import dotenv from 'dotenv'
 dotenv.config()
 import schedule from 'node-schedule'
-import { leChannelID, leUserID } from './sus.js'
+import { leChannelID, leUserID, firstDay } from './sus.js'
 
 const client = new DiscordJS.Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
 })
 
-let monthReal, susTime, nowDate, susMonth, susYear, totalDayMil, totalDay, manSend, manSendArray, sheesh, Amount, susAmount, lastMessageSplit, previousTotal, finalTotal, overallCumTime;
+let monthReal, susTime, nowDate, susMonth, susYear, totalDayMil, totalDay, manSend, manSendArray, sheesh, Amount, susAmount, lastMessageSplit, previousTotal, finalTotal, overallCumTime, averageCum, averageCumReal;
 
 function monthConverter(susMonth){
     switch(susMonth){
@@ -28,13 +28,18 @@ function monthConverter(susMonth){
     }
     return(monthReal);
 }
+function averageCoom(finalTotal, totalDay){
+    averageCum = finalTotal/totalDay;
+    averageCumReal = averageCum.toFixed(2);
+    return {averageCum, averageCumReal};
+}
 
 client.on('ready', () => {
     console.log(`ChannelID: ${leChannelID}`)
     console.log(`It's nuttin' time`)
     const leSchedule = schedule.scheduleJob(`59 23 * * *`, function(){
         console.log('automatically sending time!!1111!!');
-        const firstDay = new Date(2021, 7, 10); //Start date (The project started on 2021, 7 ,10)
+        ; //Start date (The project started on 2021, 7 ,10)
         const dateCreate = new Date();
         nowDate = dateCreate.getDate();
         susMonth = dateCreate.getMonth();
@@ -91,8 +96,7 @@ client.on('messageCreate', async (message) => {
     if (message.channelId == leChannelID && message.author.id == leUserID){
         if (message.content == 'log') {
             message.delete();
-
-            const firstDay = new Date(2021, 7, 10); //Start date (The project idea started on 2021, 7 ,10)
+ 
             const dateCreate = new Date();
             nowDate = dateCreate.getDate();
             susMonth = dateCreate.getMonth();
@@ -173,6 +177,7 @@ client.on('messageCreate', async (message) => {
                 timeConvert(Amount);
                 timeConvertAgain(finalTotal);
                 monthConverter(susMonth);
+                averageCoom(finalTotal, totalDay);
 
                 console.log(`\n${nowDate} ${monthReal} ${susYear} (${totalDay} days since starting date)`)
 
@@ -198,11 +203,12 @@ client.on('messageCreate', async (message) => {
                 console.log(`lastMessageSplit: ${lastMessageSplit}`);
                 console.log(`dateCompare: ${dateCompare}`);
                 console.log(`Sending amount: ${Amount}`);
+                console.log(`Averge cum per day: ${averageCum}`);
 
                 setTimeout(() => {     
                     // The date is the same as previous' log entry
                     if (dateCompare == 0){ //edit message 1 second after fetching ( 3s after command)
-                        lastMessage.edit(`**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** ${susAmount} ${susTime} (Total: ${finalTotal} ${overallCumTime})`)
+                        lastMessage.edit(`**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** ${susAmount} ${susTime} (Total: ${finalTotal} ${overallCumTime}) (avg. CPD: ${averageCumReal})`)
                         .then(msg => console.log(`Updated the content of a message to ${msg.content}`))
                         .catch(console.error);
                     }
