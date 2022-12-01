@@ -42,19 +42,17 @@ sudo pacman -S nodejs
 
 <h2>Bot configuration</h2>
 
-Download this github as a ZIP or use git clone:
+Clone this repo to anywhere where it suits you.
 
 ```git clone https://github.com/sand1234560/discord-nut-counter-bot.git```
 
-Put the project anywhere where it suits you, also unzip if you downloaded it as a ZIP.
-
-Navigate to the discord-nut-counter-bot directory
+cd into it
 
 create a new file named .env using any text editor (nano in this case)
 
 ```nano .env```
 
-Enter your copied token 
+Enter your bot token 
 
 ![Screenshot from 2022-11-29 20-22-25](https://user-images.githubusercontent.com/90265322/204540382-19d9a770-e4ac-40e3-b326-691acdb81aad.png)
 
@@ -62,10 +60,19 @@ Ctrl+O, Enter, Ctrl+X to save and exit nano
 
 Create a new discord channel for your log. Allow only you and the bot to send message.
 
+Copy the channel's and your user's ID into sus.js
+
+<img width="50%" alt="Screen Shot 2565-12-01 at 12 10 58" src="https://user-images.githubusercontent.com/90265322/204970789-6cf06161-4a5a-45a7-8e6e-6ccbe8eef333.png">
+
+<img width="50%" alt="Screen Shot 2565-12-01 at 12 11 13" src="https://user-images.githubusercontent.com/90265322/204970877-09316d44-4cd8-4eab-808f-fe37e9cad77b.png">
+
+<img width="80%" alt="Screen Shot 2565-12-01 at 12 13 21" src="https://user-images.githubusercontent.com/90265322/204971301-21efed20-b908-42cf-95d7-7bdee7a1afaa.png">
+
 run "node index.js" in the main directory to start the bot. (Use systemd if you don't want to activate it manually.)
 
 <h2>Automatically run on start up using systemd</h2>
-sudo nano /etc/systemd/system/<anything>.service
+
+```sudo nano /etc/systemd/system/<anything>.service```
 
 ```
 [Unit]
@@ -114,9 +121,8 @@ Copy the token (Token is an authentication Key, keep it safe)
 
 ![Screenshot from 2022-11-29 14-09-16](https://user-images.githubusercontent.com/90265322/204464446-7bb30136-55f8-452f-a4c6-4298ee499e85.png)
 
-invite the bot to your server. (Administrator privilege isn't good, Im working on it alright)
+invite the bot to your server.
 
 ![image](https://user-images.githubusercontent.com/90265322/204468054-fcb909c3-599a-4526-a78f-ebde8f8da39a.png)
 
 ![image](https://user-images.githubusercontent.com/90265322/204468222-7e67c26a-62fe-4e48-849b-e17e0cef4524.png)
- 
