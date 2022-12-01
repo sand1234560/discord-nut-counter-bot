@@ -1,5 +1,4 @@
 <h1>Discord.js nut counter bot</h1>
-<h3>!!!Guide unfinished!!!</h3>
 
 ![mp,550x550,gloss,ffffff,t u3](https://user-images.githubusercontent.com/90265322/201673566-88727c41-0ce4-4c48-983f-472b2795902a.jpg)
 
@@ -46,6 +45,8 @@ Clone this repo to anywhere where it suits you.
 
 ```git clone https://github.com/sand1234560/discord-nut-counter-bot.git```
 
+(You can also download this project as a ZIP and extract it.)
+
 cd into it
 
 create a new file named .env using any text editor (nano in this case)
@@ -60,7 +61,7 @@ Ctrl+O, Enter, Ctrl+X to save and exit nano
 
 Create a new discord channel for your log. Allow only you and the bot to send message.
 
-Copy the channel's and your user's ID into sus.js
+Copy the <b>channel's</b> and your <b>user's ID</b> into sus.js
 
 <img width="50%" alt="Screen Shot 2565-12-01 at 12 10 58" src="https://user-images.githubusercontent.com/90265322/204970789-6cf06161-4a5a-45a7-8e6e-6ccbe8eef333.png">
 
@@ -99,30 +100,30 @@ Run this to start the bot now and on start up:
 
 Go to https://discord.com/developers/applications/ and create a new application
 
-![Screenshot from 2022-11-29 14-07-11](https://user-images.githubusercontent.com/90265322/204464252-f7af47fb-664c-45b7-a71a-eca47ae0956f.png)
+<img width="80%" alt="sus" src="https://user-images.githubusercontent.com/90265322/204464252-f7af47fb-664c-45b7-a71a-eca47ae0956f.png">
 
-![Screenshot from 2022-11-29 14-07-22](https://user-images.githubusercontent.com/90265322/204464264-b0b876a9-1567-41ab-bfbf-f3651233ba67.png)
+<img width="80%" alt="sus" src="https://user-images.githubusercontent.com/90265322/204464264-b0b876a9-1567-41ab-bfbf-f3651233ba67.png">
 
-![Screenshot from 2022-11-29 14-08-37](https://user-images.githubusercontent.com/90265322/204464287-8fff2ce2-fdc1-4d07-bd10-c8fd1fda1714.png)
+<img width="80%" alt="sus" src="https://user-images.githubusercontent.com/90265322/204464287-8fff2ce2-fdc1-4d07-bd10-c8fd1fda1714.png">
 
 Add a bot
 
-![Screenshot from 2022-11-29 14-08-46](https://user-images.githubusercontent.com/90265322/204464419-98855860-c009-4087-95e0-c19c90d098de.png)
+<img width="80%" alt="sus" src="https://user-images.githubusercontent.com/90265322/204464419-98855860-c009-4087-95e0-c19c90d098de.png">
 
 Give the bot some privileges
 
-![image](https://user-images.githubusercontent.com/90265322/204467001-3aef7e83-e355-4741-afa2-8de893b483be.png)
+<img width="80%" alt="sus" src="https://user-images.githubusercontent.com/90265322/204467001-3aef7e83-e355-4741-afa2-8de893b483be.png">
 
 Reset the token
 
-![Screenshot from 2022-11-29 14-09-01](https://user-images.githubusercontent.com/90265322/204464427-0f32af47-c1f9-472d-ae4e-1043b66eecca.png)
+<img width="80%" alt="sus" src="https://user-images.githubusercontent.com/90265322/204464427-0f32af47-c1f9-472d-ae4e-1043b66eecca.png">
 
 Copy the token (Token is an authentication Key, keep it safe)
 
-![Screenshot from 2022-11-29 14-09-16](https://user-images.githubusercontent.com/90265322/204464446-7bb30136-55f8-452f-a4c6-4298ee499e85.png)
+<img width="80%" alt="sus" src="https://user-images.githubusercontent.com/90265322/204464446-7bb30136-55f8-452f-a4c6-4298ee499e85.png">
 
 invite the bot to your server.
 
-![image](https://user-images.githubusercontent.com/90265322/204468054-fcb909c3-599a-4526-a78f-ebde8f8da39a.png)
+<img width="80%" alt="sus" src="https://user-images.githubusercontent.com/90265322/204468054-fcb909c3-599a-4526-a78f-ebde8f8da39a.png">
 
-![image](https://user-images.githubusercontent.com/90265322/204468222-7e67c26a-62fe-4e48-849b-e17e0cef4524.png)
+<img width="80%" alt="sus" src="https://user-images.githubusercontent.com/90265322/204468222-7e67c26a-62fe-4e48-849b-e17e0cef4524.png">
