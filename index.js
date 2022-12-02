@@ -34,60 +34,85 @@ function averageCoom(finalTotal, totalDay){
     return {averageCum, averageCumReal};
 }
 
+function prevTimeConvert(previousTotal){ //whether "time" after the day's total amount becomes "times"
+    if (previousTotal == 1) {
+        susTime = "time";
+    } else {
+        susTime = "times";
+    }
+    return susTime;
+}
+
+function dateSet(firstDay){
+    let dateCreate = new Date();
+    nowDate = dateCreate.getDate();
+    susMonth = dateCreate.getMonth();
+    susYear = dateCreate.getFullYear();
+    totalDayMil = dateCreate - firstDay; //Total day in milliseconds.
+    totalDay = Math.floor((totalDayMil / (1000*60*60*24)) + 1); //Total day milsec convert to days.
+    monthConverter(susMonth);
+    return {nowDate, monthReal, susYear, totalDay};
+}
+
 client.on('ready', () => {
     console.log(`ChannelID: ${leChannelID}`)
-    console.log(`It's nuttin' time`)
-    const leSchedule = schedule.scheduleJob(`59 23 * * *`, function(){
+    console.log(`It's nuttin' time`) //It's nuttin' time
+    const leSchedule = schedule.scheduleJob(`59 23 * * *`, function(){ //cron job
         console.log('automatically sending time!!1111!!');
-        ; //Start date (The project started on 2021, 7 ,10)
+        dateSet(firstDay);
+/*        
         const dateCreate = new Date();
         nowDate = dateCreate.getDate();
         susMonth = dateCreate.getMonth();
         susYear = dateCreate.getFullYear();
         totalDayMil = dateCreate - firstDay; //Total day in milliseconds.
         totalDay = Math.floor((totalDayMil / (1000*60*60*24)) + 1); //Total day milsec convert to days.
-        monthConverter(susMonth)
+        monthConverter(susMonth)*/
 
         //const channel = client.channels.cache.find(channel => channel.name === "nut-test-real");
         const channel = client.channels.cache.find(channel => channel.id == leChannelID);
 
         channel.messages.fetch({ limit: 1 }).then(messages => {
             let lastMessage = messages.first();
-            let lastMessageSplit = lastMessage.content.split(' ');
-            let previousDay = lastMessageSplit[1]; 
-            let finalPreviousDay = parseInt(previousDay); //previous date
-            let dateCompare = totalDay-finalPreviousDay;
             
-            console.log(`lastMessage: ${lastMessage}`);
-            console.log(`PreviousDay: ${finalPreviousDay}`)
-            console.log(`Today: ${totalDay}`)
-            console.log(`dateCompare: ${dateCompare}`)
-    
-            if (lastMessage == undefined){ //No previous message (first message)
+            
+            if (lastMessage == undefined){ //First message
+                console.log(lastMessage)
+
+                console.log(`Sending first mesg: **Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :zero: times (Total: 0 times) (Average: 0.00)`);
+
                 channel.send({
-                    content: `**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :zero: times (Total: 0 times)` //first day
+                    content: `**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :zero: times (Total: 0 times) (Average: 0.00)` //first day
                 })
-                console.log("bruv");
-            } else {
+            } else { //Clean that day
+                lastMessageSplit = lastMessage.content.split(' ');
+                let previousDay = lastMessageSplit[1]; 
+                let finalPreviousDay = parseInt(previousDay); //previous date
+                let dateCompare = totalDay-finalPreviousDay;
+
+                console.log(`lastMessage: ${lastMessage}`);
+                console.log(`dateCompare: ${dateCompare}`)
+
                 if (dateCompare > 0){
+                    let previousDay = lastMessageSplit[1]; 
+                    let finalPreviousDay = parseInt(previousDay); //previous date
                     let previousTotal = lastMessageSplit[9]; //Previous day total
                     let finalTotal = parseInt(previousTotal); //turns previousTotal into int
-                    finalTotal+= 1;
-    
-                    function timeConvert(previousTotal){ //whether "time" after the day's total amount becomes "times"
-                        if (previousTotal == 1) {
-                            susTime = "time";
-                        } else {
-                            susTime = "times";
-                        }
-                        return susTime;
-                    }
-                    timeConvert(previousTotal)
+
+                    prevTimeConvert(previousTotal);
+                    averageCoom(finalTotal, totalDay);
+
+                    console.log(`PreviousDay: ${finalPreviousDay}`);
+                    console.log(`Today (Since start): ${totalDay}`);
                     console.log(`previous total: ${previousTotal}, Today total: ${finalTotal}`);
+                    console.log(`Auto sending: **Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :zero: times (Total: 0 times) (Average: 0)`);            
+                    console.log(`Averge cum per day: ${averageCum} \n`);
     
-                    channel.send(`**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :zero: times (Total: ${previousTotal} ${susTime})`)
+                    channel.send(`**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :zero: times (Total: ${previousTotal} ${susTime}) (Average: ${averageCumReal})`);
+                } else if (dateCompare == 0){
+                    console.log("smh")
                 }
-            }
+            }    
         })
     })
 })
@@ -96,14 +121,15 @@ client.on('messageCreate', async (message) => {
     if (message.channelId == leChannelID && message.author.id == leUserID){
         if (message.content == 'log') {
             message.delete();
- 
+            dateSet(firstDay);
+ /*
             const dateCreate = new Date();
             nowDate = dateCreate.getDate();
             susMonth = dateCreate.getMonth();
             susYear = dateCreate.getFullYear();
             totalDayMil = dateCreate - firstDay; //Total day in milliseconds.
             totalDay = Math.floor((totalDayMil / (1000*60*60*24)) + 1); //Total day milsec convert to days.
-          
+*/          
             function AmountConvert(susAmount){
                 switch(susAmount) {
                     case ":zero:":Amount = 0;break;
@@ -130,7 +156,7 @@ client.on('messageCreate', async (message) => {
                     case "9️⃣":Amount = 9;break;
                     case "🔟":Amount = 10;break;
                     case "1️⃣1️⃣":Amount = 11;break;
-                    default:Amount = "Too much, my man.";break;
+                    default:Amount = "**Too much, my man.**";break;
                 }
                 Amount += 1;
                 return Amount;
@@ -155,11 +181,11 @@ client.on('messageCreate', async (message) => {
             }
 
             setTimeout(() => { 
-                message.channel.messages.fetch({ limit: 1 }).then(messages => { //fetch 2s after command
+                message.channel.messages.fetch({ limit: 1 }).then(messages => { //fetch 1.2s after command
                 let lastMessage = messages.first();
                 if (lastMessage == undefined){
                     message.channel.send({ //Absolute first message
-                        content: `**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :one: time (Total: 1 time)`
+                        content: `**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :one: time (Total: 1 time) (Average: 0.00)`
                     })
                 }
                 lastMessageSplit = lastMessage.content.split(' ');
@@ -176,7 +202,6 @@ client.on('messageCreate', async (message) => {
                 AmountConvert(susAmount);
                 timeConvert(Amount);
                 timeConvertAgain(finalTotal);
-                monthConverter(susMonth);
                 averageCoom(finalTotal, totalDay);
 
                 console.log(`\n${nowDate} ${monthReal} ${susYear} (${totalDay} days since starting date)`)
@@ -195,7 +220,7 @@ client.on('messageCreate', async (message) => {
                     case 9:susAmount = ":nine:";break;
                     case 10:susAmount = ":keycap_ten:";break;
                     case 11:susAmount = ":one::one:";break;
-                    default:susAmount = "Too much, my man.";break;
+                    default:susAmount = "**Too much, my man.**";break;
                 }
 
                 let dateCompare = totalDay-finalPreviousDay
@@ -208,7 +233,7 @@ client.on('messageCreate', async (message) => {
                 setTimeout(() => {     
                     // The date is the same as previous' log entry
                     if (dateCompare == 0){ //edit message 1 second after fetching ( 3s after command)
-                        lastMessage.edit(`**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** ${susAmount} ${susTime} (Total: ${finalTotal} ${overallCumTime}) (avg. CPD: ${averageCumReal})`)
+                        lastMessage.edit(`**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** ${susAmount} ${susTime} (Total: ${finalTotal} ${overallCumTime}) (Average: ${averageCumReal})`)
                         .then(msg => console.log(`Updated the content of a message to ${msg.content}`))
                         .catch(console.error);
                     }
@@ -223,12 +248,12 @@ client.on('messageCreate', async (message) => {
                     // The date doesn't match previous' log entry
                     else if (dateCompare > 0){
                         message.channel.send({
-                            content: `**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :one: time (Total: ${finalTotal} ${overallCumTime})`
+                            content: `**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :one: time (Total: ${finalTotal} ${overallCumTime}) (Average: ${averageCumReal})`
                         })
                     }
-                            }, 1000);
+                            }, 800);
                 }).catch(console.error);  
-            }, 2000);
+            }, 800);
         }
     }  
 })
@@ -251,7 +276,7 @@ client.on('messageCreate', async (message) => {
                 case "9️⃣":sheesh = ":nine:";break;
                 case "🔟":sheesh = ":keycap_ten:";break;
                 case "1️⃣1️⃣":sheesh = ":one::one:";break;
-                default:sheesh = "Too much, my man.";break;
+                default:sheesh = "**Too much, my man.**";break;
             }
             message.delete();
             manSend.splice(6, 1, sheesh)
