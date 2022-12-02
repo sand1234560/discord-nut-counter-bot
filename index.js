@@ -8,7 +8,7 @@ const client = new DiscordJS.Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
 })
 
-let monthReal, susTime, nowDate, susMonth, susYear, totalDayMil, totalDay, manSend, manSendArray, sheesh, Amount, susAmount, lastMessageSplit, previousTotal, finalTotal, overallCumTime, averageCum, averageCumReal;
+let monthReal, susTime, nowDate, susMonth, susYear, totalDayMil, totalDay, manSend, manSendArray, sheesh, Amount, susAmount, lastMessageSplit, previousTotal, finalTotal, overallCumTime, averageCum, averageCumReal, averageToggle;
 
 function monthConverter(susMonth){
     switch(susMonth){
@@ -53,6 +53,14 @@ function dateSet(firstDay){
     monthConverter(susMonth);
     return {nowDate, monthReal, susYear, totalDay};
 }
+function leAvgToggle(avgToggle){
+    if (avgToggle == true){
+        averageToggle = ` (Avg. cum per day: ${averageCumReal})`;
+    } else {
+        averageToggle = ``;
+    }
+    return averageToggle;
+}
 
 client.on('ready', () => {
     console.log(`ChannelID: ${leChannelID}`)
@@ -60,14 +68,6 @@ client.on('ready', () => {
     const leSchedule = schedule.scheduleJob(`55 13 * * *`, function(){ //cron job
         console.log('automatically sending time!!1111!!');
         dateSet(firstDay);
-/*        
-        const dateCreate = new Date();
-        nowDate = dateCreate.getDate();
-        susMonth = dateCreate.getMonth();
-        susYear = dateCreate.getFullYear();
-        totalDayMil = dateCreate - firstDay; //Total day in milliseconds.
-        totalDay = Math.floor((totalDayMil / (1000*60*60*24)) + 1); //Total day milsec convert to days.
-        monthConverter(susMonth)*/
 
         //const channel = client.channels.cache.find(channel => channel.name === "nut-test-real");
         const channel = client.channels.cache.find(channel => channel.id == leChannelID);
@@ -78,11 +78,11 @@ client.on('ready', () => {
             
             if (lastMessage == undefined){ //First message
                 console.log(lastMessage)
-                console.log(`Sending first mesg: **Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :zero: times (Total: 0 times) (Average: 0.00)`);
+                console.log(`Sending first mesg: **Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :zero: times (Total: 0 times) (Avg. cum per day: 0.00)`);
 
                 if (avgToggle == true){
                     channel.send({
-                        content: `**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :zero: times (Total: 0 times) (Average: 0.00)` //first day
+                        content: `**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :zero: times (Total: 0 times) (Avg. cum per day: 0.00)` //first day
                     })
                 } else {
                     channel.send({
@@ -107,18 +107,15 @@ client.on('ready', () => {
 
                     prevTimeConvert(previousTotal);
                     averageCoom(finalTotal, totalDay);
+                    leAvgToggle(avgToggle);
 
                     console.log(`PreviousDay: ${finalPreviousDay}`);
                     console.log(`Today (Since start): ${totalDay}`);
                     console.log(`previous total: ${previousTotal}, Today total: ${finalTotal}`);
                     console.log(`Auto sending: **Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :zero: times (Total: 0 times) (Average: 0)`);            
                     console.log(`Averge cum per day: ${averageCum} \n`);
-                    if (avgToggle == true){
-                        channel.send(`**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :zero: times (Total: ${previousTotal} ${susTime}) (Average: ${averageCumReal})`);
-                    } else {
-                        channel.send(`**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :zero: times (Total: ${previousTotal} ${susTime})`);
-                    }
-                    
+
+                    channel.send(`**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :zero: times (Total: ${previousTotal} ${susTime})${averageToggle}`);
                 } else if (dateCompare == 0){
                     console.log("smh")
                 }
@@ -131,15 +128,7 @@ client.on('messageCreate', async (message) => {
     if (message.channelId == leChannelID && message.author.id == leUserID){
         if (message.content == 'log') {
             message.delete();
-            dateSet(firstDay);
- /*
-            const dateCreate = new Date();
-            nowDate = dateCreate.getDate();
-            susMonth = dateCreate.getMonth();
-            susYear = dateCreate.getFullYear();
-            totalDayMil = dateCreate - firstDay; //Total day in milliseconds.
-            totalDay = Math.floor((totalDayMil / (1000*60*60*24)) + 1); //Total day milsec convert to days.
-*/          
+            dateSet(firstDay);        
             function AmountConvert(susAmount){
                 switch(susAmount) {
                     case ":zero:":Amount = 0;break;
@@ -196,7 +185,7 @@ client.on('messageCreate', async (message) => {
                 if (lastMessage == undefined){
                     if (avgToggle == true){
                         message.channel.send({ //Absolute first message
-                            content: `**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :one: time (Total: 1 time) (Average: 0.00)`
+                            content: `**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :one: time (Total: 1 time) (Avg. cum per day: 0.00)`
                         })
                     } else {
                         message.channel.send({ //Absolute first message
@@ -207,7 +196,7 @@ client.on('messageCreate', async (message) => {
                 lastMessageSplit = lastMessage.content.split(' ');
                 previousTotal = lastMessageSplit[9]; //Previous day total
                 finalTotal = parseInt(previousTotal); //turns previousTotal into int
-                finalTotal+= 1;
+                finalTotal+=1;
                 console.log(`previous total: ${previousTotal}, Today total: ${finalTotal}`);
 
                 let previousDay = lastMessageSplit[1]; 
@@ -219,6 +208,7 @@ client.on('messageCreate', async (message) => {
                 timeConvert(Amount);
                 timeConvertAgain(finalTotal);
                 averageCoom(finalTotal, totalDay);
+                leAvgToggle(avgToggle);
 
                 console.log(`\n${nowDate} ${monthReal} ${susYear} (${totalDay} days since starting date)`)
 
@@ -249,35 +239,15 @@ client.on('messageCreate', async (message) => {
                 setTimeout(() => {     
                     // The date is the same as previous' log entry
                     if (dateCompare == 0){ //edit message 1 second after fetching ( 3s after command)
-                        if (avgToggle == true){
-                            lastMessage.edit(`**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** ${susAmount} ${susTime} (Total: ${finalTotal} ${overallCumTime}) (Average: ${averageCumReal})`)
+                        
+                        lastMessage.edit(`**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** ${susAmount} ${susTime} (Total: ${finalTotal} ${overallCumTime})${averageToggle}`)
                             .then(msg => console.log(`Updated the content of a message to ${msg.content}`))
                             .catch(console.error);
-                        } else {
-                            lastMessage.edit(`**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** ${susAmount} ${susTime} (Total: ${finalTotal} ${overallCumTime})`)
-                            .then(msg => console.log(`Updated the content of a message to ${msg.content}`))
-                            .catch(console.error);
-                        }
                     }
-                    /* //shitfucking broken
-                    else if (Number.isNaN(dateCompare)){
-                        message.channel.send({
-                            content: `**Day ${totalDay} - ${nowDate} ${susMonth} ${susYear}:** :one: time (Total: ${finalTotal} ${overallCumTime})`
-                        })
-                        console.log("No previous message found")
-                    }*/
-
-                    // The date doesn't match previous' log entry
                     else if (dateCompare > 0){
-                        if (avgToggle == true){
-                            message.channel.send({
-                                content: `**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :one: time (Total: ${finalTotal} ${overallCumTime}) (Average: ${averageCumReal})`
-                            })
-                        } else {
-                            message.channel.send({
-                                content: `**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :one: time (Total: ${finalTotal} ${overallCumTime})`
-                            })
-                        }
+                        message.channel.send({
+                            content: `**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :one: time (Total: ${finalTotal} ${overallCumTime})${averageToggle}`
+                        })
                     }
                             }, 500);
                 }).catch(console.error);  
