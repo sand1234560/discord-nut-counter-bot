@@ -2,7 +2,7 @@ import DiscordJS, { Intents } from 'discord.js'
 import dotenv from 'dotenv'
 dotenv.config()
 import schedule from 'node-schedule'
-import { leChannelID, leUserID, firstDay } from './sus.js'
+import { leChannelID, leUserID, firstDay, avgToggle } from './sus.js'
 
 const client = new DiscordJS.Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
@@ -57,7 +57,7 @@ function dateSet(firstDay){
 client.on('ready', () => {
     console.log(`ChannelID: ${leChannelID}`)
     console.log(`It's nuttin' time`) //It's nuttin' time
-    const leSchedule = schedule.scheduleJob(`59 23 * * *`, function(){ //cron job
+    const leSchedule = schedule.scheduleJob(`55 13 * * *`, function(){ //cron job
         console.log('automatically sending time!!1111!!');
         dateSet(firstDay);
 /*        
@@ -78,12 +78,18 @@ client.on('ready', () => {
             
             if (lastMessage == undefined){ //First message
                 console.log(lastMessage)
-
                 console.log(`Sending first mesg: **Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :zero: times (Total: 0 times) (Average: 0.00)`);
 
-                channel.send({
-                    content: `**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :zero: times (Total: 0 times) (Average: 0.00)` //first day
-                })
+                if (avgToggle == true){
+                    channel.send({
+                        content: `**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :zero: times (Total: 0 times) (Average: 0.00)` //first day
+                    })
+                } else {
+                    channel.send({
+                        content: `**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :zero: times (Total: 0 times)` //first day without avg
+                    })
+                }
+
             } else { //Clean that day
                 lastMessageSplit = lastMessage.content.split(' ');
                 let previousDay = lastMessageSplit[1]; 
@@ -107,8 +113,12 @@ client.on('ready', () => {
                     console.log(`previous total: ${previousTotal}, Today total: ${finalTotal}`);
                     console.log(`Auto sending: **Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :zero: times (Total: 0 times) (Average: 0)`);            
                     console.log(`Averge cum per day: ${averageCum} \n`);
-    
-                    channel.send(`**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :zero: times (Total: ${previousTotal} ${susTime}) (Average: ${averageCumReal})`);
+                    if (avgToggle == true){
+                        channel.send(`**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :zero: times (Total: ${previousTotal} ${susTime}) (Average: ${averageCumReal})`);
+                    } else {
+                        channel.send(`**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :zero: times (Total: ${previousTotal} ${susTime})`);
+                    }
+                    
                 } else if (dateCompare == 0){
                     console.log("smh")
                 }
@@ -184,9 +194,15 @@ client.on('messageCreate', async (message) => {
                 message.channel.messages.fetch({ limit: 1 }).then(messages => { //fetch 1.2s after command
                 let lastMessage = messages.first();
                 if (lastMessage == undefined){
-                    message.channel.send({ //Absolute first message
-                        content: `**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :one: time (Total: 1 time) (Average: 0.00)`
-                    })
+                    if (avgToggle == true){
+                        message.channel.send({ //Absolute first message
+                            content: `**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :one: time (Total: 1 time) (Average: 0.00)`
+                        })
+                    } else {
+                        message.channel.send({ //Absolute first message
+                            content: `**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :one: time (Total: 1 time)`
+                        })
+                    }
                 }
                 lastMessageSplit = lastMessage.content.split(' ');
                 previousTotal = lastMessageSplit[9]; //Previous day total
@@ -233,9 +249,15 @@ client.on('messageCreate', async (message) => {
                 setTimeout(() => {     
                     // The date is the same as previous' log entry
                     if (dateCompare == 0){ //edit message 1 second after fetching ( 3s after command)
-                        lastMessage.edit(`**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** ${susAmount} ${susTime} (Total: ${finalTotal} ${overallCumTime}) (Average: ${averageCumReal})`)
-                        .then(msg => console.log(`Updated the content of a message to ${msg.content}`))
-                        .catch(console.error);
+                        if (avgToggle == true){
+                            lastMessage.edit(`**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** ${susAmount} ${susTime} (Total: ${finalTotal} ${overallCumTime}) (Average: ${averageCumReal})`)
+                            .then(msg => console.log(`Updated the content of a message to ${msg.content}`))
+                            .catch(console.error);
+                        } else {
+                            lastMessage.edit(`**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** ${susAmount} ${susTime} (Total: ${finalTotal} ${overallCumTime})`)
+                            .then(msg => console.log(`Updated the content of a message to ${msg.content}`))
+                            .catch(console.error);
+                        }
                     }
                     /* //shitfucking broken
                     else if (Number.isNaN(dateCompare)){
@@ -247,13 +269,19 @@ client.on('messageCreate', async (message) => {
 
                     // The date doesn't match previous' log entry
                     else if (dateCompare > 0){
-                        message.channel.send({
-                            content: `**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :one: time (Total: ${finalTotal} ${overallCumTime}) (Average: ${averageCumReal})`
-                        })
+                        if (avgToggle == true){
+                            message.channel.send({
+                                content: `**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :one: time (Total: ${finalTotal} ${overallCumTime}) (Average: ${averageCumReal})`
+                            })
+                        } else {
+                            message.channel.send({
+                                content: `**Day ${totalDay} - ${nowDate} ${monthReal} ${susYear}:** :one: time (Total: ${finalTotal} ${overallCumTime})`
+                            })
+                        }
                     }
-                            }, 800);
+                            }, 500);
                 }).catch(console.error);  
-            }, 800);
+            }, 500);
         }
     }  
 })
