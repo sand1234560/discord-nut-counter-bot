@@ -41,7 +41,7 @@ sudo pacman -S nodejs
 
 <h2>Bot configuration</h2>
 
-Clone this repo to anywhere where it suits you.
+Clone this repo to anywhere that suits you.
 
 ```git clone https://github.com/sand1234560/discord-nut-counter-bot.git```
 
