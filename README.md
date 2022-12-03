@@ -4,7 +4,9 @@
 
 Discord bot for you to keep track of how many times you ejaculate in a day. 
 
-<b>You can only log 11 times before the bot fucking dies. (No one should ever do it more than 11 times a day)</b>
+<b>You can only log 11 times before the bot fucking dies.</b>
+
+This guide is mainly aimed towards Ubuntu and Arch Linux, might do Windows someday.
 
 <h2>How 2 use the bot</h2>
 
@@ -12,15 +14,13 @@ Type `log` to log your nut
  
 Type `logSend` to send a manual log if in any case the bot malfunction and you missed a day.
   
-```**Day <days-since-start> - <Date> <Month> <Year>:** <Amount> times (Total: <Total> times)```
+```logSend **Day <days-since-start> - <Date> <Month> <Year>:** <Amount> times (Total: <Total> times)```
 
 Example:
 
-```**Day 69 - 1 Dec 2022:** :seven: times (Total: 420 times)```
+```logSend **Day 69 - 1 Dec 2022:** :seven: times (Total: 420 times)```
   
- The bot automatically sends :zero: times at 23:59 if no log has been made that day.
- 
-This tutorial is mainly aimed towards Ubuntu and Arch Linux, Windows support might come some day.
+The bot automatically sends :zero: times at 23:59 if no log has been made that day.
 
 <h2>Required dependencies</h2>
 
@@ -57,15 +57,13 @@ Enter your bot token
 
 ![Screenshot from 2022-11-29 20-22-25](https://user-images.githubusercontent.com/90265322/204540382-19d9a770-e4ac-40e3-b326-691acdb81aad.png)
 
-Ctrl+O, Enter, Ctrl+X to save and exit nano
+<b>Ctrl+O</b>, <b>Enter</b>, <b>Ctrl+X</b> to save and exit nano
 
-Create a new discord channel for your log. Allow only you and the bot to send message.
-
-Copy the <b>channel's</b> and your <b>user's ID</b> into sus.js
-
-<img width="50%" alt="Screen Shot 2565-12-01 at 12 10 58" src="https://user-images.githubusercontent.com/90265322/204970789-6cf06161-4a5a-45a7-8e6e-6ccbe8eef333.png">
+Create a new discord channel for your log. Copy the <b>channel's</b> and your <b>user's ID</b> into sus.js
 
 <img width="50%" alt="Screen Shot 2565-12-01 at 12 11 13" src="https://user-images.githubusercontent.com/90265322/204970877-09316d44-4cd8-4eab-808f-fe37e9cad77b.png">
+
+<img width="50%" alt="Screen Shot 2565-12-01 at 12 10 58" src="https://user-images.githubusercontent.com/90265322/204970789-6cf06161-4a5a-45a7-8e6e-6ccbe8eef333.png">
 
 <img width="80%" alt="Screen Shot 2565-12-01 at 12 13 21" src="https://user-images.githubusercontent.com/90265322/204971301-21efed20-b908-42cf-95d7-7bdee7a1afaa.png">
 
