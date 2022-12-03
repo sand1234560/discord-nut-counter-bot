@@ -1,6 +1,6 @@
 <h1>Discord.js nut counter bot</h1>
 
-![mp,550x550,gloss,ffffff,t u3](https://user-images.githubusercontent.com/90265322/201673566-88727c41-0ce4-4c48-983f-472b2795902a.jpg)
+<img width="50%" alt="bruh" src="https://user-images.githubusercontent.com/90265322/205453349-828efcf6-e314-4670-b1dc-9e3a7f802653.gif">
 
 Discord bot for you to keep track of how many times you ejaculate in a day. 
 
