@@ -65,7 +65,7 @@ function leAvgToggle(avgToggle){
 client.on('ready', () => {
     console.log(`ChannelID: ${leChannelID}`)
     console.log(`It's nuttin' time`) //It's nuttin' time
-    const leSchedule = schedule.scheduleJob(`55 13 * * *`, function(){ //cron job
+    const leSchedule = schedule.scheduleJob(`59 23 * * *`, function(){ //cron job
         console.log('automatically sending time!!1111!!');
         dateSet(firstDay);
 
