@@ -73,7 +73,7 @@ run "node index.js" in the main directory to start the bot. (Use systemd if you 
 
 <h2>Automatically run on start up using systemd</h2>
 
-```sudo nano /etc/systemd/system/<anything>.service```
+```sudo nano /etc/systemd/system/nutLog.service```
 
 ```
 [Unit]
@@ -90,11 +90,11 @@ WantedBy=multi-user.target
 ```
 Run this to start the bot:
   
-```sudo systemctl start <anything>.service```
+```sudo systemctl start nutLog.service```
 
 Run this to start the bot now and on start up:
 
-```sudo systemctl enable --now <anything>.service```
+```sudo systemctl enable --now nutLog.service```
 
 <h2>Creating a new discord bot (Follow this if you don't have one already.) </h2>
 
