@@ -261,6 +261,7 @@ client.on('messageCreate', async (message) => {
         if (message.content.startsWith("logSend")) { //Manual send
             manSend = message.content.slice(8).split(' ');
             manSendArray = manSend[6]
+            let manSendAstCheck = manSend[0].slice(0,2)//check for asterisk
             switch(manSendArray) {
                 case "0️⃣":sheesh = ":zero:";break;
                 case "1️⃣":sheesh = ":one:";break;
@@ -276,15 +277,29 @@ client.on('messageCreate', async (message) => {
                 case "1️⃣1️⃣":sheesh = ":one::one:";break;
                 default:sheesh = "**Too much, my man.**";break;
             }
+/*            //Just some old troubleshooting stuff
+            console.log(`manSend: ${manSend}`);
+            console.log(`manSendArray: ${manSendArray}`);
+            console.log(`sheesh: ${sheesh}`);
+            console.log(`${manSend[0].slice(0,2)}`);
+*/
             message.delete();
-            manSend.splice(6, 1, sheesh)
-            let manSendFinal = manSend.join(" ");
-            /* //Just some old troubleshooting stuff
-            console.log("manSend: " + manSend);
-            console.log("manSendArray: " + manSendArray);
-            console.log("sheesh: " + sheesh)
-            */
-            message.channel.send(manSendFinal);
+            if (manSendAstCheck == "**"){
+                manSend.splice(6, 1, sheesh);
+                let manSendFinal = manSend.join(" ");
+                console.log(`manSendFinal: ${manSendFinal}`)
+                message.channel.send(manSendFinal);
+            } else { //If logSend has no **...**, just text formatting for the log to look good.
+                manSend.splice(6, 1, sheesh);
+                manSend.splice(0, 0, "**");
+                manSend.splice(7, 0, "**");
+                let manSendFinal = manSend.join(" ");
+                let manSendAbsoluteFinal = manSendFinal.slice(0, 2) + manSendFinal.slice(3, 24) + manSendFinal.slice(25) //remove the spaces that are added with the .join
+                console.log(`manSendAbsoluteFinal: ${manSendAbsoluteFinal}`);
+                message.channel.send({
+                        content: manSendAbsoluteFinal
+                })
+            }
         }
     }
 })
